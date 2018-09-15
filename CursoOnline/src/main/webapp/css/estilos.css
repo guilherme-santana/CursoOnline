@@ -1,0 +1,20 @@
+footer {
+	background-color: #333;
+	color: #FFF;
+	padding: 20px;
+	margin-top: 10px;
+}
+
+footer address:last-child {
+	margin-bottom: 0;
+}
+
+.twitter-share-button {
+    display: inline-block;            
+    width: 40px;
+    margin: 0;
+    background-size: 100% 100%; /* ou 'contain' */
+    background-image: url("img/twitter.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
