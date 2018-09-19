@@ -19,19 +19,19 @@ public class Usuario implements ObjectModel {
 	@Column(name="idUsuario")
 	private Long idUsuario;
 	
-	@Column(name="nomeUsuario")
+	@Column(name="nomeUsuario", nullable=false)
 	private String nomeUsuario;
 	
-	@Column(name="cpfUsuario")
+	@Column(name="cpfUsuario", nullable=false)
 	private String cpfUsuario;
 	
-	@Column(name="emailUsuario")
+	@Column(name="emailUsuario", nullable=false)
 	private String emailUsuario;
 	
 	@Column(name="telefoneUsuario")
 	private String telefoneUsuario;
 	
-	@Column(name="senhaUsuario")
+	@Column(name="senhaUsuario", nullable=false)
 	private String senhaUsuario;
 	
 	@Transient

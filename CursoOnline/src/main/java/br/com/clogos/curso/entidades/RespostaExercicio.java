@@ -20,10 +20,10 @@ public class RespostaExercicio implements ObjectModel {
 	@Column(name="idResposta")
 	private Long idResposta;
 	
-	@Column(name="opcaoResposta")
+	@Column(name="opcaoResposta", nullable=false)
 	private String opcaoResposta;
 	
-	@Column(name="bolCorreta")
+	@Column(name="bolCorreta", nullable=false)
 	private Boolean bolCorreta;
 	
 	@ManyToOne @JoinColumn(name="fkExercicio")

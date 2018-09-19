@@ -134,6 +134,27 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
         return obj;
     }
 	
+	@SuppressWarnings("unchecked")
+	public  List<?> findIDList(Class<?> clazz, String coluna, Long id) {
+		entityManager = JPAConect.getEntityManager();
+		List<Object> lista = new ArrayList<Object>();
+		try {
+			entityManager.getTransaction().begin();
+			String nameClass = clazz.getSimpleName();
+			lista = entityManager.createQuery("SELECT c FROM " + nameClass+ " c WHERE "+coluna+" = "+id)
+					.getResultList();
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		} finally {
+			if(entityManager.isOpen()) {
+				entityManager.close();
+			}
+		}
+        return lista;
+    }
+	
 	public Object findString(Class<?> clazz, String coluna, String param) {
 		entityManager = JPAConect.getEntityManager();
 		Object obj = null;

@@ -8,6 +8,8 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	
 	<class>br.com.clogos.curso.entidades.Usuario</class>
+	<class>br.com.clogos.curso.entidades.Exercicio</class>
+	<class>br.com.clogos.curso.entidades.RespostaExercicio</class>
 	
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	
@@ -24,8 +26,7 @@
 		
 		<property name="hibernate.show_sql" value="true" />
 	  	<property name="hibernate.format_sql" value="true" />
-  	  	<property name="hibernate.hbm2ddl.auto" value="create" />
-<!--   	  	<property name="hibernate.default_schema" value="uniweb"/> -->
+  	  	<property name="hibernate.hbm2ddl.auto" value="update" />
 	</properties>
 		
 	</persistence-unit>
