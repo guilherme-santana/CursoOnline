@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import br.com.clogos.curso.entidades.Usuario;
+import br.com.clogos.curso.servico.IndexServico;
 import br.com.clogos.curso.servico.ValidarUsuario;
 
 /**
@@ -51,8 +52,8 @@ public class EntrarServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("usuariologado", usuario);
 			session.setMaxInactiveInterval(20*60);
-			System.out.println(session.getAttribute("usuariologado"));
-			request.getRequestDispatcher("Index.jsp").forward(request, response);
+			request.setAttribute("listaCursos", new IndexServico().listarTodosCursos());
+			request.getRequestDispatcher("Index").forward(request, response);
 			
         } else {
         	request.setAttribute("errorMessage", "Credencias está inválida !!!");

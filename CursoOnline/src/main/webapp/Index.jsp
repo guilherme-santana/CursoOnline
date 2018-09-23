@@ -20,34 +20,37 @@ $(function() {
 </script>
 	
 	<div id="menu">
-		<%@include file="menu.jsp"%>	
+		<%@include file="template/menu.jsp"%>	
 	</div>
 
 	<section id="cursos" class="container">
 		<h2>Cursos disponíveis</h2>
 
 		<div class="row">
-			<div class="col-sm-6 col-md-4 col-lg-3">
-				<figure class="thumbnail">
-					<img src="img/enfermagem.jpg" alt="">
-					<figcaption class="caption">
-						<h3>Enfermagem na prática</h3>
-						<p>A enfermagem é uma ciência cujo objetivo é a implantação do tratamento de doenças e o cuidado ao ser humano</p>
-						
-						<c:if test="${empty sessionScope.usuariologado}">
-							<p><a href="Entrar.jsp" class="btn btn-primary" role="button">Habilitar Curso</a></p>
-						</c:if>
-						
-						<c:if test="${not empty sessionScope.usuariologado}">
-							<p><a href="Compartilhar.jsp" class="btn btn-success" role="button">Iniciar</a></p>
-							<!-- <button class="btn btn-success" data-toggle="modal" data-target="#modal-mensagem">Iniciar</button>-->
-						</c:if>
-						
-						
-					</figcaption>
-				</figure>
-			</div>
+			<c:forEach items="${requestScope.listaCursos}" var="cursos">
+				<div class="col-sm-6 col-md-4 col-lg-3">
+					<figure class="thumbnail">
+						<img src="img/enfermagem.jpg" alt="">
+						<figcaption class="caption">
+							<h3><c:out value="${cursos.nomeCurso}"></c:out></h3>
+							<p><c:out value="${cursos.descricaoCurso}"></c:out></p>
+							
+							<c:if test="${empty sessionScope.usuariologado}">
+								<p><a href="Entrar.jsp" class="btn btn-primary" role="button">Habilitar Curso</a></p>
+							</c:if>
+							
+							<c:if test="${not empty sessionScope.usuariologado}">
+								<p><a href="Compartilhar?id=${cursos.idCurso}" class="btn btn-success" role="button">Iniciar</a></p>
+								<!-- <button class="btn btn-success" data-toggle="modal" data-target="#modal-mensagem">Iniciar</button>-->
+							</c:if>
+							
+							
+						</figcaption>
+					</figure>
+				</div>
+			</c:forEach>
 			
+			<!-- 			
 			<div class="col-sm-6 col-md-4 col-lg-3">
 				<figure class="thumbnail">
 					<img src="img/radiologia.jpg" alt="">
@@ -81,6 +84,7 @@ $(function() {
 					</figcaption>
 				</figure>
 			</div>
+			-->
 		</div>
 	</section>
 	
@@ -141,5 +145,5 @@ $(function() {
 	</section>
 	
 	<div id="footer">
-		<%@include file="footer.jsp"%>	
+		<%@include file="template/footer.jsp"%>	
 	</div>

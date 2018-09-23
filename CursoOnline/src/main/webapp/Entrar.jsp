@@ -1,5 +1,5 @@
 <div id="menu">
-	<%@include file="menu.jsp"%>
+	<%@include file="template/menu.jsp"%>
 </div>
 
 <section id="entrar" class="container">
@@ -70,5 +70,5 @@
 	</div>
 </section>
 <div id="footer">
-	<%@include file="footer.jsp"%>	
+	<%@include file="template/footer.jsp"%>	
 </div>

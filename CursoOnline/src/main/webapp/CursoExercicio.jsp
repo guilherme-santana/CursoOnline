@@ -1,5 +1,5 @@
 <div id="menu">
-	<%@include file="menu.jsp"%>
+	<%@include file="template/menu.jsp"%>
 </div>
 
 <div class="container">
@@ -7,7 +7,7 @@
 	<section id="exercicio">
 	     <div class="container">
 	        <div class="page-header"><h1>Exercício <small>Enfermagem na prática</small></h1></div>
-	        <form method="post" action="CursoExercicio" enctype=text/plain>
+	        <form method="get" action="CursoExercicio" enctype=text/plain>
 	        	<div class="panel panel-default">
 	        	<c:forEach items="${requestScope.listaExercicio}" var="listaExer">
 	        		<div class="panel-heading text-justify"><c:out value="${listaExer.questaoExercicio}"></c:out></div>
@@ -16,7 +16,7 @@
 	        			<c:forEach items="${listaExer.listaResposta}" var="listaResp">
 						<div class="radio">
 						  <label>
-						    <input type="radio" name="${listaResp.exercicio.idExercicio}" value="1" required="required">
+						    <input type="radio" name="${listaResp.exercicio.idExercicio}" value="${listaResp.idResposta}" required="required">
 						    <c:out value="${listaResp.opcaoResposta}"></c:out>
 						  </label>
 						</div>	
@@ -40,5 +40,5 @@
 	
 
 <div id="footer">
-	<%@include file="footer.jsp"%>
+	<%@include file="template/footer.jsp"%>
 </div>

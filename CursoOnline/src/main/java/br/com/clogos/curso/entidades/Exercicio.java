@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,9 @@ public class Exercicio implements ObjectModel {
 	
 	@Column(name="questaoExercicio", nullable=false, columnDefinition="text")
 	private String questaoExercicio;
+	
+	@ManyToOne @JoinColumn(name="fkCurso")
+	private Curso curso;
 	
 	@OneToMany(mappedBy="exercicio")
 	private List<RespostaExercicio> listaResposta;
@@ -45,4 +50,11 @@ public class Exercicio implements ObjectModel {
 	public void setListaResposta(List<RespostaExercicio> listaResposta) {
 		this.listaResposta = listaResposta;
 	}
+	public Curso getCurso() {
+		return curso;
+	}
+	public void setCurso(Curso curso) {
+		this.curso = curso;
+	}
+	
 }

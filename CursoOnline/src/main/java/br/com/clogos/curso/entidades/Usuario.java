@@ -36,7 +36,6 @@ public class Usuario implements ObjectModel {
 	
 	@Transient
 	private Long cursoAndamento;
-	
 	@Transient
 	private Integer qdtCompartilhamento;
 	

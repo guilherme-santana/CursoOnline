@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import br.com.clogos.curso.dao.ObjectModel;
 
@@ -28,6 +29,9 @@ public class RespostaExercicio implements ObjectModel {
 	
 	@ManyToOne @JoinColumn(name="fkExercicio")
 	private Exercicio exercicio;
+	
+	@Transient
+	private Long opcaoMarcada;
 	
 	public Long getIdResposta() {
 		return idResposta;
@@ -52,5 +56,11 @@ public class RespostaExercicio implements ObjectModel {
 	}
 	public void setExercicio(Exercicio exercicio) {
 		this.exercicio = exercicio;
+	}
+	public Long getOpcaoMarcada() {
+		return opcaoMarcada;
+	}
+	public void setOpcaoMarcada(Long opcaoMarcada) {
+		this.opcaoMarcada = opcaoMarcada;
 	}
 }

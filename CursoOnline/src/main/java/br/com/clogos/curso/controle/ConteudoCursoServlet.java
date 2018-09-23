@@ -15,7 +15,7 @@ import br.com.clogos.curso.dao.impl.GenericDAOImpl;
  * Servlet implementation class EntrarServlet
  */
 @WebServlet (urlPatterns = "/Curso")
-public class CursoServlet extends HttpServlet {
+public class ConteudoCursoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private GenericDAO genericDAO;
@@ -23,7 +23,7 @@ public class CursoServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CursoServlet() {
+    public ConteudoCursoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class CursoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			request.getRequestDispatcher("CursoConcluido.jsp").forward(request, response);	
+			
 			
 			
 		} catch (NumberFormatException e) {

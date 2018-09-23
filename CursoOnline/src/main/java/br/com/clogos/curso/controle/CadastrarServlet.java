@@ -14,6 +14,7 @@ import br.com.clogos.curso.dao.GenericDAO;
 import br.com.clogos.curso.dao.impl.GenericDAOImpl;
 import br.com.clogos.curso.entidades.Usuario;
 import br.com.clogos.curso.seguranca.CriptografiaBase64;
+import br.com.clogos.curso.servico.IndexServico;
 
 /**
  * Servlet implementation class EntrarServlet
@@ -56,7 +57,8 @@ public class CadastrarServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("usuariologado", usuario);
 				session.setMaxInactiveInterval(20*60);
-				request.getRequestDispatcher("/Index.jsp").forward(request, response);
+				request.setAttribute("listaCursos", new IndexServico().listarTodosCursos());
+				request.getRequestDispatcher("Index").forward(request, response);
 				
 			} else {
 				request.setAttribute("errorCadastro", "Problemas ao Cadastrar, contate a coordenação do Colégio Logos !!!");

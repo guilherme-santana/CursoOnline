@@ -28,6 +28,9 @@ public class CompartilharServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuariologado");
+		usuarioLogado.setCursoAndamento(Long.valueOf(request.getParameter("id")));
+		request.setAttribute("usuariologado", usuarioLogado);
 		request.getRequestDispatcher("Compartilhar.jsp").forward(request, response);
 	}
 
@@ -44,7 +47,7 @@ public class CompartilharServlet extends HttpServlet {
 			request.setAttribute("usuariologado", usuarioLogado);
 			request.getRequestDispatcher("/Compartilhar.jsp").forward(request, response);
 		} else {
-			request.getRequestDispatcher("/Curso.jsp").forward(request, response);
+			request.getRequestDispatcher("/CursoConteudo.jsp").forward(request, response);
 		}
 	}
 

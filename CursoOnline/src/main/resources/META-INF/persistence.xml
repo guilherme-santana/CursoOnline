@@ -10,6 +10,9 @@
 	<class>br.com.clogos.curso.entidades.Usuario</class>
 	<class>br.com.clogos.curso.entidades.Exercicio</class>
 	<class>br.com.clogos.curso.entidades.RespostaExercicio</class>
+	<class>br.com.clogos.curso.entidades.ConteudoCurso</class>
+	<class>br.com.clogos.curso.entidades.Curso</class>
+	
 	
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	

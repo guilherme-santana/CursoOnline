@@ -86,7 +86,7 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
 		    }
 		    entityManager.getTransaction().commit();
 		    return Boolean.valueOf(true);
-		} catch (Exception e) {
+		} catch (PersistenceException e) {
 		    entityManager.getTransaction().rollback();
 		    e.printStackTrace();
 		    return Boolean.valueOf(false);
@@ -103,7 +103,7 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
 			lista = entityManager.createQuery("SELECT c FROM " + nameClass+ " c "+join+" ORDER BY c."+coluna+" "+order)
 					.getResultList();
 			entityManager.getTransaction().commit();
-		} catch (Exception e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 		} finally {
@@ -123,7 +123,7 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
 			obj = entityManager.createQuery("SELECT c FROM " + nameClass+ " c WHERE "+coluna+" = "+id)
 					.getSingleResult();
 			entityManager.getTransaction().commit();
-		} catch (Exception e) {
+		} catch (PersistenceException e) {
 			e.printStackTrace();
 			entityManager.getTransaction().rollback();
 		} finally {
