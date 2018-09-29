@@ -1,5 +1,7 @@
 package br.com.clogos.curso.entidades;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +35,9 @@ public class Usuario implements ObjectModel {
 	
 	@Column(name="senhaUsuario", nullable=false)
 	private String senhaUsuario;
+	
+	@Column(name="dataCadastroUsuario", nullable=true)
+	private Date dataCadastroUsuario;
 	
 	@Transient
 	private Long cursoAndamento;
@@ -89,5 +94,11 @@ public class Usuario implements ObjectModel {
 	}
 	public void setCursoAndamento(Long cursoAndamento) {
 		this.cursoAndamento = cursoAndamento;
+	}
+	public Date getDataCadastroUsuario() {
+		return dataCadastroUsuario == null ? new Date() : dataCadastroUsuario;
+	}
+	public void setDataCadastroUsuario(Date dataCadastroUsuario) {
+		this.dataCadastroUsuario = dataCadastroUsuario;
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import br.com.clogos.curso.dao.GenericDAO;
@@ -155,7 +156,7 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
         return lista;
     }
 	
-	public Object findString(Class<?> clazz, String coluna, String param) {
+	public Object findString(Class<?> clazz, String coluna, String param) throws PersistenceException {
 		entityManager = JPAConect.getEntityManager();
 		Object obj = null;
 		try {
@@ -164,9 +165,11 @@ public class GenericDAOImpl<T extends ObjectModel> implements Serializable, Gene
 			obj = entityManager.createQuery("SELECT c FROM " + nameClass+ " c WHERE "+coluna+" = "+"'"+param+"'")
 					.getSingleResult();
 			entityManager.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (NoResultException e) { 
+			return null;
+		} catch (PersistenceException e) {
 			entityManager.getTransaction().rollback();
+			throw new PersistenceException(e);
 		} finally {
 			if(entityManager.isOpen()) {
 				entityManager.close();

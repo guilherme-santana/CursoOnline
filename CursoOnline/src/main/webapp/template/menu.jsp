@@ -10,8 +10,9 @@
 	
 	<script type="text/javascript" src="js/myJavaScript.js"></script>
 	<script type="text/javascript" src="js/jquery.js"></script>
-	<script src="js/jquery.maskedinput.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	
 
 <script type="text/javascript">
     //Mascara no campos

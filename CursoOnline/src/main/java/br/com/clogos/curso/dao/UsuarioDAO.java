@@ -6,5 +6,5 @@ import br.com.clogos.curso.entidades.Usuario;
 
 public interface UsuarioDAO {
 	
-	void incluirUsuario(Usuario usuario) throws PersistenceException;
+	Usuario existeUsuarioCastrado(String cpf, String email) throws PersistenceException;
 }

@@ -38,6 +38,16 @@
 				</div>									
 			 </div>
 		 </div>
+		 
+		 <div class="col-sm-6 col-md-4">
+			 <div class="thumbnail">
+			 	<img src="img/whatsapp.png" height="60" width="90" alt="..."/><br/>
+				<div align="center">
+					<p><a href="https://api.whatsapp.com/send?text=http://www.clogos.com.br" class="btn btn-success" role="button">Compartilhar</a></p>
+				</div>									
+			 </div>
+		 </div>
+		 
 		 <div>
 			<form method="post" action="Compartilhar">
 		       <input type="submit" class="btn btn-warning btn-lg btn-block" value="Validar">

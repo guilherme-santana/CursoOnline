@@ -3,6 +3,7 @@ package br.com.clogos.curso.controle;
 import java.io.IOException;
 import java.math.BigDecimal;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,18 +49,22 @@ public class EntrarServlet extends HttpServlet {
 		usuario.setQdtCompartilhamento(BigDecimal.ZERO.intValue());
 		
         
-		if(validarUsuario.validarCredenciais(usuario)) {
-			HttpSession session = request.getSession();
-			session.setAttribute("usuariologado", usuario);
-			session.setMaxInactiveInterval(20*60);
-			request.setAttribute("listaCursos", new IndexServico().listarTodosCursos());
-			request.getRequestDispatcher("Index").forward(request, response);
-			
-        } else {
-        	request.setAttribute("errorMessage", "Credencias está inválida !!!");
-            request.getRequestDispatcher("/Entrar.jsp").forward(request, response);
-        }
-		
+		try {
+			if(validarUsuario.validarCredenciais(usuario)) {
+				HttpSession session = request.getSession();
+				session.setAttribute("usuariologado", usuario);
+				session.setMaxInactiveInterval(20*60);
+				request.setAttribute("listaCursos", new IndexServico().listarTodosCursos());
+				request.getRequestDispatcher("Index").forward(request, response);
+				
+			} else {
+				request.setAttribute("errorMessage", "Credencias está inválida !!!");
+			    request.getRequestDispatcher("/Entrar.jsp").forward(request, response);
+			}
+		} catch (PersistenceException e) {
+			request.setAttribute("errorMessage", "ERRO: "+e.getCause().getMessage());
+			request.getRequestDispatcher("/Entrar.jsp").forward(request, response);
+		}
 	}
 
 }

@@ -18,7 +18,7 @@ import br.com.clogos.curso.dao.impl.GenericDAOImpl;
 import br.com.clogos.curso.entidades.Exercicio;
 import br.com.clogos.curso.entidades.RespostaExercicio;
 import br.com.clogos.curso.entidades.Usuario;
-import br.com.clogos.curso.util.RecuperarSessao;
+import br.com.clogos.curso.util.Util;
 
 /**
  * Servlet implementation class EntrarServlet
@@ -89,7 +89,7 @@ public class ExercicioServlet extends HttpServlet {
 	
 	@SuppressWarnings("unchecked")
 	private List<Exercicio> listarExercicioCursoandamento(HttpServletRequest request) throws ServletException {
-		List<Exercicio> listaExercicio = (List<Exercicio>) getGenericDAO().findIDList(Exercicio.class, "fkCurso", RecuperarSessao.getIdCursoAndamento(request));
+		List<Exercicio> listaExercicio = (List<Exercicio>) getGenericDAO().findIDList(Exercicio.class, "fkCurso", Util.getIdCursoAndamento(request));
 		for(Exercicio exercicio : listaExercicio) {
 			List<RespostaExercicio> listaRespostas = (List<RespostaExercicio>) getGenericDAO().findIDList(RespostaExercicio.class, "fkExercicio", exercicio.getIdExercicio());
 			exercicio.setListaResposta(listaRespostas);
