@@ -8,7 +8,8 @@
 	     <div class="container">
 	     	<div class="page-header"><h1>Vídeo Aula <small>Enfermagem na prática</small></h1></div>
 	        <div class="embed-responsive embed-responsive-16by9">
-				<iframe width="560" height="315" src="https://www.youtube.com/embed/OEDDjl-Yrzw?rel=0&amp;controls=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+				<iframe width="560" height="315" src=${linkVideo} 
+				frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	    	</div>
 	     </div>
 	</section>

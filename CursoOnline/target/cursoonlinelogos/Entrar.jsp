@@ -1,5 +1,5 @@
 <div id="menu">
-	<%@include file="menu.jsp"%>
+	<%@include file="template/menu.jsp"%>
 </div>
 
 <section id="entrar" class="container">
@@ -34,6 +34,10 @@
 	<div class="col-md-6">
 		<h2>Cadastrar</h2>
 		<h4>Sou novo usuário</h4>
+		
+		<c:if test="${errorCadastro != null}">
+			<div class="alert alert-warning" role="alert">${errorCadastro}</div>
+		</c:if>
 
 		<form method="post" action="Cadastrar">
 			<div class="form-group">
@@ -69,6 +73,7 @@
 		</form>
 	</div>
 </section>
+
 <div id="footer">
-	<%@include file="footer.jsp"%>	
+	<%@include file="template/footer.jsp"%>	
 </div>

@@ -1,23 +1,29 @@
 package br.com.clogos.curso.controle;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.clogos.curso.dao.ExercicioDAO;
 import br.com.clogos.curso.dao.GenericDAO;
-import br.com.clogos.curso.dao.impl.ExercicioDAOImpl;
+import br.com.clogos.curso.dao.UsuarioDAO;
 import br.com.clogos.curso.dao.impl.GenericDAOImpl;
 import br.com.clogos.curso.entidades.Exercicio;
+import br.com.clogos.curso.entidades.Parametro;
 import br.com.clogos.curso.entidades.RespostaExercicio;
 import br.com.clogos.curso.entidades.Usuario;
+import br.com.clogos.curso.entidades.UsuarioCurso;
+import br.com.clogos.curso.entidades.UsuarioCursoPK;
 import br.com.clogos.curso.util.Util;
 
 /**
@@ -28,14 +34,15 @@ public class ExercicioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private GenericDAO genericDAO;
-	private ExercicioDAO exercicioDAO;
+	
+	@Inject
+	private UsuarioDAO usuarioDAO;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ExercicioServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 
@@ -47,7 +54,7 @@ public class ExercicioServlet extends HttpServlet {
 		Enumeration<String> enumeration =  request.getParameterNames();
 		
 		if(!enumeration.hasMoreElements()) {
-			request.setAttribute("listaExercicio", listarExercicioCursoandamento(request));
+			request.setAttribute("listaExercicio", listarExercicioCursoAndamento(request));
 			request.getRequestDispatcher("CursoExercicio.jsp").forward(request, response);
 		} else {
 			doPost(request, response);
@@ -56,22 +63,30 @@ public class ExercicioServlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * A Opção Marcada é o idResposta
 	 */
 	@SuppressWarnings("unchecked")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			
+			Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuariologado");
 			Enumeration<String> enumeration =  request.getParameterNames();
 			List<Exercicio> listaExercicioRespondido = new ArrayList<Exercicio>();
+			Integer qtdRespostaCorreta = BigDecimal.ZERO.intValue();
 			
 			while (enumeration.hasMoreElements()) {
 				String obj = enumeration.nextElement();
 				Exercicio exercicio = (Exercicio) getGenericDAO().findID(Exercicio.class, "idExercicio", Long.valueOf(obj));
 				List<RespostaExercicio> listaResposta = (List<RespostaExercicio>) getGenericDAO().findIDList(RespostaExercicio.class, "fkExercicio", Long.valueOf(obj));
 				exercicio.setListaResposta(setarOpcaoMarcada(listaResposta, Long.valueOf(request.getParameter(obj))));
+				qtdRespostaCorreta += corrigirExercicio(listaResposta);
 				listaExercicioRespondido.add(exercicio);
 			}
 			
+			Double mediaAcerto = obterMediaAcertos(listaExercicioRespondido.size(), qtdRespostaCorreta);
+
+			request.setAttribute("mediaAcerto", mediaAcerto);
+			request.setAttribute("habilitado", verificarSeHabilitadoECncluirCurso(mediaAcerto, usuarioLogado));
 			request.setAttribute("listaRespondida", listaExercicioRespondido);
 			request.getRequestDispatcher("CursoConcluido.jsp").forward(request, response);	
 		} catch (NumberFormatException e) {
@@ -79,16 +94,8 @@ public class ExercicioServlet extends HttpServlet {
 		}	
 	}
 	
-	private Boolean validarResposta(Long idExercicio, Long idResposta) {
-		return getExercicioDAO().respostaCorreta(idExercicio, idResposta);
-	}
-	
-	private ExercicioDAO getExercicioDAO() {
-		return exercicioDAO == null ? exercicioDAO = new ExercicioDAOImpl() : exercicioDAO;
-	}
-	
 	@SuppressWarnings("unchecked")
-	private List<Exercicio> listarExercicioCursoandamento(HttpServletRequest request) throws ServletException {
+	private List<Exercicio> listarExercicioCursoAndamento(HttpServletRequest request) throws ServletException {
 		List<Exercicio> listaExercicio = (List<Exercicio>) getGenericDAO().findIDList(Exercicio.class, "fkCurso", Util.getIdCursoAndamento(request));
 		for(Exercicio exercicio : listaExercicio) {
 			List<RespostaExercicio> listaRespostas = (List<RespostaExercicio>) getGenericDAO().findIDList(RespostaExercicio.class, "fkExercicio", exercicio.getIdExercicio());
@@ -105,6 +112,51 @@ public class ExercicioServlet extends HttpServlet {
 			listaRet.add(resp);
 		}
 		return listaRet;
+	}
+	
+	private Integer corrigirExercicio(List<RespostaExercicio> listaResp) {
+		Integer retornaUmSeCorreto = BigDecimal.ZERO.intValue();
+		
+		for(RespostaExercicio item : listaResp) {
+			if ((item.getOpcaoMarcada() == item.getIdResposta()) && item.getBolCorreta()) {
+				retornaUmSeCorreto = BigDecimal.ONE.intValue();
+			}
+		}
+		return retornaUmSeCorreto;
+	}
+	
+	private Double obterMediaAcertos(Integer qtdExercicio, Integer qtdAcertos) {
+		return (double) ((qtdAcertos / qtdExercicio) * 100);
+	}
+	
+	private Boolean verificarSeHabilitadoECncluirCurso(Double mediaAcerto, Usuario usuario) {
+		Parametro parametro = (Parametro) getGenericDAO().findID(Parametro.class, "idParametro", BigDecimal.ONE.longValue());
+		Boolean isHabilitado = mediaAcerto >= Long.valueOf(parametro.getValorParametro());
+		
+		if(isHabilitado) {
+			UsuarioCurso usuarioCurso = new UsuarioCurso();
+			usuarioCurso.setPk(new UsuarioCursoPK());
+			usuarioCurso.getPk().setIdUsuario(usuario.getIdUsuario());
+			usuarioCurso.getPk().setIdCurso(usuario.getCursoAndamento());
+			usuarioCurso.setCodigoCertificado(gerarCodigoCertificado());
+			usuarioCurso.setDataConclusaoCurso(new Date());
+			usuarioDAO.updateUsuarioCursoConclusao(usuarioCurso);
+		}
+		
+		return isHabilitado;
+	}
+	
+	private String gerarCodigoCertificado() {
+		Calendar calendar = Calendar.getInstance();
+		
+		Integer ano = calendar.get(Calendar.YEAR);
+		Integer mes = calendar.get(Calendar.MONTH)+1;
+		Integer dia = calendar.get(Calendar.DAY_OF_MONTH);
+		Long time = calendar.getTimeInMillis();
+		
+		String concatenar = ano+""+mes+""+dia+"-"+time;
+		
+		return  concatenar;
 	}
 	
 	@SuppressWarnings("rawtypes")

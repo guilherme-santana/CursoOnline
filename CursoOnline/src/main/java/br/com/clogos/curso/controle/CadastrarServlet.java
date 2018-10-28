@@ -105,7 +105,7 @@ public class CadastrarServlet extends HttpServlet {
 				}
 				
 				if(!ret) {
-					this.mensagem = "CPF: "+formataCPF(usuario.getCpfUsuario())+" ou Email "+ usuario.getEmailUsuario()+" já cadastrado !!!";
+					this.mensagem = "CPF: "+Util.formataCPF(usuario.getCpfUsuario())+" ou Email "+ usuario.getEmailUsuario()+" já cadastrado !!!";
 				}
 				
 			} catch (PersistenceException e) {
@@ -133,16 +133,5 @@ public class CadastrarServlet extends HttpServlet {
 		}
 		
 		return isCpf;
-	}
-	
-	/**
-	 * Colocar a mascara no número do CPF
-	 * @param cpf
-	 * @return
-	 */
-	private String formataCPF(String cpf) {
-		StringBuilder sBuilder = new StringBuilder(cpf)
-				.insert(3, ".").insert(7, ".").insert(11, "-");
-		return sBuilder.toString();
 	}
 }

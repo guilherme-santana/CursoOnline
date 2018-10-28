@@ -1,5 +1,8 @@
 package br.com.clogos.curso.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.InputMismatchException;
 
 import javax.servlet.ServletException;
@@ -16,6 +19,36 @@ public class Util {
 		} else {
 			throw new ServletException("Erro ao recuperar Curso Andamento Session");
 		}
+	}
+	
+	public static String extrairMensagem(Exception e) {
+		if(e.getCause() == null) {
+			return e.getMessage();
+		} else {
+			return e.getCause().getMessage();
+		}
+	}
+	
+	/**
+	 * Colocar a mascara no número do CPF
+	 * @param cpf
+	 * @return
+	 */
+	public static String formataCPF(String cpf) {
+		StringBuilder sBuilder = new StringBuilder(cpf)
+				.insert(3, ".").insert(7, ".").insert(11, "-");
+		return sBuilder.toString();
+	}
+	
+	public static Date convertStringToDate(String param) {
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date data = null;
+		try {
+			data = formato.parse(param);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 
 	/**

@@ -50,10 +50,18 @@ public class EntrarServlet extends HttpServlet {
 		
         
 		try {
-			if(validarUsuario.validarCredenciais(usuario)) {
+			Usuario usuarioValidado = validarUsuario.validarCredenciais(usuario);
+			if(usuarioValidado != null) {
+				usuario.setIdUsuario(usuarioValidado.getIdUsuario());
+				usuario.setNomeUsuario(usuarioValidado.getNomeUsuario());
+				usuario.setDataCadastroUsuario(usuarioValidado.getDataCadastroUsuario());
+				usuario.setTelefoneUsuario(usuarioValidado.getTelefoneUsuario());
+				usuario.setCpfUsuario(usuarioValidado.getCpfUsuario());
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("usuariologado", usuario);
 				session.setMaxInactiveInterval(20*60);
+				
 				request.setAttribute("listaCursos", new IndexServico().listarTodosCursos());
 				request.getRequestDispatcher("Index").forward(request, response);
 				

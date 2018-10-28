@@ -1,0 +1,1 @@
+insert into parametro values ('MEDIA DE ACERTOS EM PORCENTAGEM', '70');

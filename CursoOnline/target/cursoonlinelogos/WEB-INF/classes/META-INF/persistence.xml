@@ -8,24 +8,30 @@
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>
 	
 	<class>br.com.clogos.curso.entidades.Usuario</class>
+	<class>br.com.clogos.curso.entidades.Exercicio</class>
+	<class>br.com.clogos.curso.entidades.RespostaExercicio</class>
+	<class>br.com.clogos.curso.entidades.ConteudoCurso</class>
+	<class>br.com.clogos.curso.entidades.Curso</class>
+	<class>br.com.clogos.curso.entidades.UsuarioCursoPK</class>
+	<class>br.com.clogos.curso.entidades.UsuarioCurso</class>
+	<class>br.com.clogos.curso.entidades.Parametro</class>
 	
 	<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	
 	<properties>
 		
 		<property name="javax.persistence.jdbc.driver" value="net.sourceforge.jtds.jdbc.Driver"/>
- 	    <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://192.168.1.244:1433/CURSOONLINE"/>
-  	    <property name="javax.persistence.jdbc.password" value="#Logos!" />
+<!--  	    <property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://192.168.1.244:1433/CURSOONLINE"/> -->
+<!--   	    <property name="javax.persistence.jdbc.password" value="#Logos!" /> -->
 	    <property name="javax.persistence.jdbc.user" value="sa"/>
 	    <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect" />
 	    
-<!-- 		<property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://127.0.0.1:1433/CURSOONLINE"/>  -->
-<!--  	    <property name="javax.persistence.jdbc.password" value="123456" /> -->
+		<property name="javax.persistence.jdbc.url" value="jdbc:jtds:sqlserver://127.0.0.1:1433/CURSOONLINE"/> 
+ 	    <property name="javax.persistence.jdbc.password" value="123456" />
 		
 		<property name="hibernate.show_sql" value="true" />
 	  	<property name="hibernate.format_sql" value="true" />
-  	  	<property name="hibernate.hbm2ddl.auto" value="create" />
-<!--   	  	<property name="hibernate.default_schema" value="uniweb"/> -->
+  	  	<property name="hibernate.hbm2ddl.auto" value="update" />
 	</properties>
 		
 	</persistence-unit>

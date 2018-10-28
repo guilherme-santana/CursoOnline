@@ -1,12 +1,15 @@
 
 <div id="menu">
-	<%@include file="menu.jsp"%>
+	<%@include file="template/menu.jsp"%>
 </div>
 
 <div class="container">
 	<h4>Escolha como quer Compartilhar, deve compartilhar 3 vezes</h4>
 	<h3>Foi Compartilhado ${sessionScope.usuariologado.qdtCompartilhamento} de 3!</h3>
 	<div class="row">
+		<c:if test="${errorMessageConteudo != null}">
+			<div class="alert alert-warning" role="alert">${errorMessageConteudo}</div>
+		</c:if>
 		 <div class="col-sm-6 col-md-4">
 			 <div class="thumbnail">
 			 	<img src="img/facebook.png" height="60" width="90" alt="..."/><br/>
@@ -38,6 +41,16 @@
 				</div>									
 			 </div>
 		 </div>
+		 
+		 <div class="col-sm-6 col-md-4">
+			 <div class="thumbnail">
+			 	<img src="img/whatsapp.png" height="60" width="90" alt="..."/><br/>
+				<div align="center">
+					<p><a target="_blank" href="https://api.whatsapp.com/send?text=http://www.clogos.com.br" class="btn btn-success" role="button">Compartilhar</a></p>
+				</div>									
+			 </div>
+		 </div>
+		 
 		 <div>
 			<form method="post" action="Compartilhar">
 		       <input type="submit" class="btn btn-warning btn-lg btn-block" value="Validar">
@@ -47,5 +60,5 @@
 </div>
 
 <div id="footer">
-	<%@include file="footer.jsp"%>	
+	<%@include file="template/footer.jsp"%>	
 </div>

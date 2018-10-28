@@ -19,21 +19,20 @@ public class ValidarUsuario {
 		return instance;
 	}
 	
-	public Boolean validarCredenciais(Usuario usuario) throws PersistenceException {
-		Boolean isValiso;
+	public Usuario validarCredenciais(Usuario usuario) throws PersistenceException {
+		Usuario userValido = null;
 		try {
-			Usuario userValido = (Usuario) getGenericDAO().findString(Usuario.class, "emailUsuario", usuario.getEmailUsuario());	
-			isValiso = Boolean.FALSE;
+			userValido = (Usuario) getGenericDAO().findString(Usuario.class, "emailUsuario", usuario.getEmailUsuario());	
 			
 			if(userValido != null) {
-				if(userValido.getSenhaUsuario().equals(CriptografiaBase64.encrypt(usuario.getSenhaUsuario()))) {
-					isValiso = Boolean.TRUE;
+				if(!userValido.getSenhaUsuario().equals(CriptografiaBase64.encrypt(usuario.getSenhaUsuario()))) {
+					userValido = null;
 				}
 			}
 		} catch (PersistenceException e) {
 			throw new PersistenceException(e);
 		}
-		return isValiso;
+		return userValido;
 	}
 	
 	@SuppressWarnings("rawtypes")

@@ -25,7 +25,7 @@ $(function() {
 
 	<section id="cursos" class="container">
 		<h2>Cursos disponíveis</h2>
-
+		
 		<div class="row">
 			<c:forEach items="${requestScope.listaCursos}" var="cursos">
 				<div class="col-sm-6 col-md-4 col-lg-3">
