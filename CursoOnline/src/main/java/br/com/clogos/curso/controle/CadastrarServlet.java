@@ -62,12 +62,15 @@ public class CadastrarServlet extends HttpServlet {
 			usuario.setNomeUsuario(request.getParameter("cadastrar-nome"));
 			usuario.setEmailUsuario(request.getParameter("cadastrar-email"));
 			usuario.setCpfUsuario(request.getParameter("cadastrar-cpf").replace(".", "").replace("-", ""));
-			usuario.setTelefoneUsuario(request.getParameter("cadastrar-telefone").replace("(", "").replace(")", "").replace("-", ""));
+			usuario.setTelefoneUsuario(request.getParameter("cadastrar-telefone"));
 			usuario.setSenhaUsuario(criptografarSenha(request.getParameter("cadastrar-senha")));
 			usuario.setQdtCompartilhamento(BigDecimal.ZERO.intValue());
 			usuario.setDataCadastroUsuario(new Date());
 			
 			if(validarCPF(usuario.getCpfUsuario()) && cadastrarUsuario(usuario)) {
+				usuario.setCpfUsuario(Util.formataCPF(usuario.getCpfUsuario()));
+				usuario.setDataCadastroFormatada(Util.formatarData(usuario.getDataCadastroUsuario()));
+				
 				HttpSession session = request.getSession();
 				session.setAttribute("usuariologado", usuario);
 				session.setMaxInactiveInterval(20*60);

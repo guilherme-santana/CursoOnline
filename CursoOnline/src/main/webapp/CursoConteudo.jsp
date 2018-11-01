@@ -11,7 +11,10 @@
 	        	<c:if test="${errorMessageConteudo != null}">
 					<div class="alert alert-warning" role="alert">${errorMessageConteudo}</div>
 				</c:if>
-				<c:out value="${conteudoCurso.introducaoCurso}"/>	
+				<c:out value="${conteudoCurso.introducaoCurso}"/>
+				<br/><br/>
+				<p>Baixar Arquivo: 
+				<a href="pdf/${conteudoCurso.nomeArquivo}" target="_blank"><img alt="..." src="img/download_pdf.jpg" width="60" height="40"></a></p>
 	        </div>
 	     </div>
 	</section>

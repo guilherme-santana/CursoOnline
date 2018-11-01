@@ -30,7 +30,7 @@ $(function() {
 			<c:forEach items="${requestScope.listaCursos}" var="cursos">
 				<div class="col-sm-6 col-md-4 col-lg-3">
 					<figure class="thumbnail">
-						<img src="img/enfermagem.jpg" alt="">
+						<img src="img/curso/${cursos.nomeImagemCurso}" alt="">
 						<figcaption class="caption">
 							<h3><c:out value="${cursos.nomeCurso}"></c:out></h3>
 							<p><c:out value="${cursos.descricaoCurso}"></c:out></p>

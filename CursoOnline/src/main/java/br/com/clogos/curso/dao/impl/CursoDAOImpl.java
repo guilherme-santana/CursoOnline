@@ -61,8 +61,9 @@ public class CursoDAOImpl implements CursoDAO {
 				ret = Boolean.TRUE;
 			}
 			
+		} catch (NoResultException e) {
+			ret = Boolean.FALSE;
 		} catch (PersistenceException e) {
-			entityManager.getTransaction().rollback();
 			throw new PersistenceException(e.getMessage());
 		} finally {
 			if(entityManager.isOpen()) {

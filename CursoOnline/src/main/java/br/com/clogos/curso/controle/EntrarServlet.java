@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import br.com.clogos.curso.entidades.Usuario;
 import br.com.clogos.curso.servico.IndexServico;
 import br.com.clogos.curso.servico.ValidarUsuario;
+import br.com.clogos.curso.util.Util;
 
 /**
  * Servlet implementation class EntrarServlet
@@ -54,9 +55,9 @@ public class EntrarServlet extends HttpServlet {
 			if(usuarioValidado != null) {
 				usuario.setIdUsuario(usuarioValidado.getIdUsuario());
 				usuario.setNomeUsuario(usuarioValidado.getNomeUsuario());
-				usuario.setDataCadastroUsuario(usuarioValidado.getDataCadastroUsuario());
+				usuario.setDataCadastroFormatada(Util.formatarData(usuarioValidado.getDataCadastroUsuario()));
 				usuario.setTelefoneUsuario(usuarioValidado.getTelefoneUsuario());
-				usuario.setCpfUsuario(usuarioValidado.getCpfUsuario());
+				usuario.setCpfUsuario(Util.formataCPF(usuarioValidado.getCpfUsuario()));
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("usuariologado", usuario);

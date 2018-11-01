@@ -28,7 +28,7 @@
 				 		<p>${sessionScope.usuariologado.cpfUsuario}</p>
 				 		<p>${sessionScope.usuariologado.emailUsuario}</p>
 				 		<p>${sessionScope.usuariologado.telefoneUsuario}</p>
-				 		<p>${sessionScope.usuariologado.dataCadastroUsuario}</p>	
+				 		<p>Data de Cadastro: ${sessionScope.usuariologado.dataCadastroFormatada}</p>	
 				 	</div>
 				 </div>
 			 </div>

@@ -43,6 +43,8 @@ public class Usuario implements ObjectModel {
 	private Long cursoAndamento;
 	@Transient
 	private Integer qdtCompartilhamento;
+	@Transient
+	private String dataCadastroFormatada;
 	
 	
 	public Long getIdUsuario() {
@@ -100,5 +102,11 @@ public class Usuario implements ObjectModel {
 	}
 	public void setDataCadastroUsuario(Date dataCadastroUsuario) {
 		this.dataCadastroUsuario = dataCadastroUsuario;
+	}
+	public String getDataCadastroFormatada() {
+		return dataCadastroFormatada;
+	}
+	public void setDataCadastroFormatada(String dataCadastroFormatada) {
+		this.dataCadastroFormatada = dataCadastroFormatada;
 	}
 }

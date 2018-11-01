@@ -36,6 +36,9 @@ public class Curso implements ObjectModel {
 	@Column(name="dataCriacaoCurso")
 	private Date dataCriacaoCurso;
 	
+	@Column(name="nomeImagemCurso")
+	private String nomeImagemCurso;
+	
 	@OneToOne(cascade=CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
 	@JoinColumn(name="fkConteudo", referencedColumnName="idConteudo")
 	private ConteudoCurso conteudoCurso;
@@ -78,6 +81,14 @@ public class Curso implements ObjectModel {
 
 	public void setDataCriacaoCurso(Date dataCriacaoCurso) {
 		this.dataCriacaoCurso = dataCriacaoCurso;
+	}
+
+	public String getNomeImagemCurso() {
+		return nomeImagemCurso;
+	}
+
+	public void setNomeImagemCurso(String nomeImagemCurso) {
+		this.nomeImagemCurso = nomeImagemCurso;
 	}
 
 	public ConteudoCurso getConteudoCurso() {

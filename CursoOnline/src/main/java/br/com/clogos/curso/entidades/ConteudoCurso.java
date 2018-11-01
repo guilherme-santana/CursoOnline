@@ -25,6 +25,9 @@ public class ConteudoCurso implements ObjectModel {
 	@Column(name="linkVideo")
 	private String linkVideo;
 	
+	@Column(name="nomeArquivo")
+	private String nomeArquivo;
+	
 	@OneToOne(mappedBy="conteudoCurso")
 	private Curso curso;
 
@@ -50,6 +53,14 @@ public class ConteudoCurso implements ObjectModel {
 
 	public void setLinkVideo(String linkVideo) {
 		this.linkVideo = linkVideo;
+	}
+
+	public String getNomeArquivo() {
+		return nomeArquivo;
+	}
+
+	public void setNomeArquivo(String nomeArquivo) {
+		this.nomeArquivo = nomeArquivo;
 	}
 
 	public Curso getCurso() {

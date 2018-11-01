@@ -40,6 +40,16 @@ public class Util {
 		return sBuilder.toString();
 	}
 	
+	/**
+	 * Formatar data
+	 * @param data
+	 * @return
+	 */
+	public static String formatarData(Date data) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		return dateFormat.format(data);
+	}
+	
 	public static Date convertStringToDate(String param) {
 		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
 		Date data = null;
