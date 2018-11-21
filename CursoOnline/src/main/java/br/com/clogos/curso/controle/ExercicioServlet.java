@@ -2,6 +2,7 @@ package br.com.clogos.curso.controle;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,9 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.clogos.curso.dao.CursoDAO;
 import br.com.clogos.curso.dao.GenericDAO;
 import br.com.clogos.curso.dao.UsuarioDAO;
 import br.com.clogos.curso.dao.impl.GenericDAOImpl;
+import br.com.clogos.curso.entidades.Curso;
 import br.com.clogos.curso.entidades.Exercicio;
 import br.com.clogos.curso.entidades.Parametro;
 import br.com.clogos.curso.entidades.RespostaExercicio;
@@ -37,6 +40,8 @@ public class ExercicioServlet extends HttpServlet {
 	
 	@Inject
 	private UsuarioDAO usuarioDAO;
+	@Inject
+	private CursoDAO cursoDAO;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,10 +55,12 @@ public class ExercicioServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		Usuario usuarioLogado = (Usuario) request.getSession().getAttribute("usuariologado");
 		Enumeration<String> enumeration =  request.getParameterNames();
+		Curso curso = cursoDAO.obterCurso(usuarioLogado.getCursoAndamento());
 		
 		if(!enumeration.hasMoreElements()) {
+			request.setAttribute("nomeCurso", curso != null ? curso.getNomeCurso() : "");
 			request.setAttribute("listaExercicio", listarExercicioCursoAndamento(request));
 			request.getRequestDispatcher("CursoExercicio.jsp").forward(request, response);
 		} else {
@@ -84,7 +91,8 @@ public class ExercicioServlet extends HttpServlet {
 			}
 			
 			Double mediaAcerto = obterMediaAcertos(listaExercicioRespondido.size(), qtdRespostaCorreta);
-
+			
+			request.setAttribute("nomeCurso", obterNomeCurso(usuarioLogado));
 			request.setAttribute("mediaAcerto", mediaAcerto);
 			request.setAttribute("habilitado", verificarSeHabilitadoECncluirCurso(mediaAcerto, usuarioLogado));
 			request.setAttribute("listaRespondida", listaExercicioRespondido);
@@ -118,7 +126,7 @@ public class ExercicioServlet extends HttpServlet {
 		Integer retornaUmSeCorreto = BigDecimal.ZERO.intValue();
 		
 		for(RespostaExercicio item : listaResp) {
-			if ((item.getOpcaoMarcada() == item.getIdResposta()) && item.getBolCorreta()) {
+			if ((item.getOpcaoMarcada().equals(item.getIdResposta())) && item.getBolCorreta()) {
 				retornaUmSeCorreto = BigDecimal.ONE.intValue();
 			}
 		}
@@ -126,7 +134,9 @@ public class ExercicioServlet extends HttpServlet {
 	}
 	
 	private Double obterMediaAcertos(Integer qtdExercicio, Integer qtdAcertos) {
-		return (double) ((qtdAcertos / qtdExercicio) * 100);
+		DecimalFormat formato = new DecimalFormat("#,##");
+		Double resultado = Double.valueOf(formato.format((Double.valueOf(qtdAcertos) / Double.valueOf(qtdExercicio)) * 100)); 
+		return resultado;
 	}
 	
 	private Boolean verificarSeHabilitadoECncluirCurso(Double mediaAcerto, Usuario usuario) {
@@ -157,6 +167,15 @@ public class ExercicioServlet extends HttpServlet {
 		String concatenar = ano+""+mes+""+dia+"-"+time;
 		
 		return  concatenar;
+	}
+	
+	private String obterNomeCurso(Usuario user) {
+		String nomeCurso = "";
+		if(user != null && user.getCursoAndamento() != null) {
+			nomeCurso = cursoDAO.obterCurso(user.getCursoAndamento()).getNomeCurso();
+		}
+		
+		return nomeCurso;
 	}
 	
 	@SuppressWarnings("rawtypes")

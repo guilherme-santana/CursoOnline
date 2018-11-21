@@ -4,20 +4,31 @@
 
 <section id="exercicio">
      <div class="container">
-        <div class="page-header"><h1>Resultado <small>Enfermagem na prática</small></h1></div>
+        <div class="page-header"><h1>Resultado <small><c:out value="${nomeCurso}"/></small></h1></div>
         
-        <div>
-        	<h1>Você obteve a média de ${mediaAcerto}%
-        	<c:if test="${habilitado}">
-	        	e está habilitado.<br/>
-	        	<h2>Verifique suas resposta e emita seu Certificado.</h2>
-        	</c:if>
-        	<c:if test="${not habilitado}">
-        	e não está habilitado.<br/>
-        	<h2>Verifique suas resposta e por favor Tente Novamente.</h2>
-        	</c:if>
-        	</h1>
-        </div>
+       	<c:if test="${habilitado}">
+       		<div class="panel panel-success">
+	       		<div class="panel-heading text-justify">
+	       			Você obteve a média de ${mediaAcerto}% e está habilitado.<br/>
+	       		</div>
+	        	<div class="panel-body text-muted">
+	        		Verifique suas resposta e emita seu Certificado.
+	        	</div>
+        	</div>
+       	</c:if>
+       	
+       	<c:if test="${not habilitado}">
+       		<div class="panel panel-danger">
+	       		<div class="panel-heading text-justify">
+	       			Você obteve a média de ${mediaAcerto}% e não está habilitado.<br/>
+	       		</div>
+	        	
+	        	<div class="panel-body text-muted">
+	        		Verifique suas resposta e por favor Tente Novamente.
+	        	</div>
+        	</div>
+       	</c:if>
+        
 
        	<c:if test="${errorMessageConcluido != null}">
 			<div class="alert alert-warning" role="alert">${errorMessageConcluido}</div>

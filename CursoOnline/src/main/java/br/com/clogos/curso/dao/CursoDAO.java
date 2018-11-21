@@ -3,6 +3,7 @@ package br.com.clogos.curso.dao;
 import javax.persistence.PersistenceException;
 
 import br.com.clogos.curso.entidades.ConteudoCurso;
+import br.com.clogos.curso.entidades.Curso;
 import br.com.clogos.curso.entidades.Usuario;
 
 public interface CursoDAO {
@@ -10,4 +11,5 @@ public interface CursoDAO {
 	Boolean existeCursoAndamento(Usuario usuario) throws PersistenceException;
 	Boolean existeCursoAndamentoNaoFinalizado(Usuario usuario) throws PersistenceException;
 	Boolean verificarCursoAndamentoEstaFinalizado(Usuario usuario) throws PersistenceException;
+	Curso obterCurso(Long idCurso) throws PersistenceException;
 }

@@ -6,7 +6,7 @@
 	
 	<section id="exercicio">
 	     <div class="container">
-	        <div class="page-header"><h1>Exercício <small>Enfermagem na prática</small></h1></div>
+	        <div class="page-header"><h1>Exercício <small><c:out value="${nomeCurso}"/></small></h1></div>
 	        <form method="get" action="CursoExercicio" enctype=text/plain>
 	        	<div class="panel panel-default">
 	        	<c:forEach items="${requestScope.listaExercicio}" var="listaExer">

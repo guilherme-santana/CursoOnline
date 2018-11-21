@@ -7,6 +7,7 @@ import javax.persistence.PersistenceException;
 
 import br.com.clogos.curso.dao.CursoDAO;
 import br.com.clogos.curso.entidades.ConteudoCurso;
+import br.com.clogos.curso.entidades.Curso;
 import br.com.clogos.curso.entidades.Usuario;
 import br.com.clogos.curso.entidades.UsuarioCurso;
 import br.com.clogos.curso.jpa.JPAConect;
@@ -41,6 +42,32 @@ public class CursoDAOImpl implements CursoDAO {
 			}
 		}
 		return conteudoCurso;
+	}
+	
+	@Override
+	public Curso obterCurso(Long idCurso) throws PersistenceException {
+		entityManager = JPAConect.getEntityManager();
+		StringBuilder sql = new StringBuilder();
+		Curso curso = null;
+		
+		sql.append("SELECT c FROM Curso c ");
+		sql.append("WHERE c.idCurso=:idCurso");
+		
+		try {
+			curso = (Curso) entityManager.createQuery(sql.toString())
+					.setParameter("idCurso", idCurso).getSingleResult();
+			
+		} catch (NoResultException e) {
+			return null;
+		} catch (PersistenceException e) {
+			entityManager.getTransaction().rollback();
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			if(entityManager.isOpen()) {
+				entityManager.close();
+			}
+		}
+		return curso;
 	}
 	
 	@Override

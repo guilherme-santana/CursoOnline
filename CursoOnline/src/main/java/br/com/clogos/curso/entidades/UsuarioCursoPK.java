@@ -26,4 +26,33 @@ public class UsuarioCursoPK implements ObjectModel {
 	public void setIdCurso(Long idCurso) {
 		this.idCurso = idCurso;
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idCurso == null) ? 0 : idCurso.hashCode());
+		result = prime * result + ((idUsuario == null) ? 0 : idUsuario.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioCursoPK other = (UsuarioCursoPK) obj;
+		if (idCurso == null) {
+			if (other.idCurso != null)
+				return false;
+		} else if (!idCurso.equals(other.idCurso))
+			return false;
+		if (idUsuario == null) {
+			if (other.idUsuario != null)
+				return false;
+		} else if (!idUsuario.equals(other.idUsuario))
+			return false;
+		return true;
+	}
 }

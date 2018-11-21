@@ -6,7 +6,7 @@
 	
 	<section id="introducao">
 	     <div class="container">
-	     	<div class="page-header"><h1>Introdução <small>Enfermagem na prática</small></h1></div>
+	     	<div class="page-header"><h1>Introdução <small>${conteudoCurso.curso.nomeCurso}</small></h1></div>
 	        <div class="text-justify container text-muted">
 	        	<c:if test="${errorMessageConteudo != null}">
 					<div class="alert alert-warning" role="alert">${errorMessageConteudo}</div>
@@ -21,7 +21,7 @@
 	
 	<nav aria-label="...">
 	  <ul class="pager">
-	    <li class="next"><a href="CursoVideo?value=${conteudoCurso.linkVideo}">Próximo <span aria-hidden="true">&rarr;</span></a></li>
+	    <li class="next"><a href="CursoVideo?value=${conteudoCurso.linkVideo}&nomeCurso=${conteudoCurso.curso.nomeCurso}">Próximo <span aria-hidden="true">&rarr;</span></a></li>
 	  </ul>
 	</nav>
 </div>

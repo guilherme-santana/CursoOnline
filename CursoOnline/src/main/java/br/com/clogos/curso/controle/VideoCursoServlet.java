@@ -34,7 +34,9 @@ public class VideoCursoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String linkVideo = request.getParameter("value");
+		String nomeCurso = request.getParameter("nomeCurso");
 		request.setAttribute("linkVideo", linkVideo);
+		request.setAttribute("nomeCurso", nomeCurso);
 		request.getRequestDispatcher("CursoVideo.jsp").forward(request, response);
 	}
 

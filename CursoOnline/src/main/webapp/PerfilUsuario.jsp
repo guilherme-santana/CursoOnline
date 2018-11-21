@@ -46,7 +46,7 @@
 				 		<c:forEach items="${requestScope.listaCursoUsuario}" var="cursosUsuario">
 							<tr>
 							  <td><c:out value="${cursosUsuario.nomeCurso}"></c:out></td>
-							  <td><c:out value="${cursosUsuario.cargaHoraria}"></c:out></td>
+							  <td><c:out value="${cursosUsuario.cargaHoraria}"></c:out> Horas</td>
 							  <td><c:out value="${cursosUsuario.cursoConcluido}"></c:out></td>
 							  <td>
 								  <c:if test="${cursosUsuario.cursoConcluido eq 'Sim'}">

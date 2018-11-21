@@ -75,6 +75,7 @@
 						</c:if>
 						
 						<c:if test="${not empty sessionScope.usuariologado}">
+							<!-- <li><a  href="CadastrarCurso.jsp">Cadastro</a></li>-->
 							<li><a  href="PerfilUsuario"><img src="img/usuario.png" height="16" width="16" alt="..."/> Minha Conta</a></li>
 							<li><a href="Logout">Sair</a></li>
 						</c:if>

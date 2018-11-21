@@ -1,5 +1,6 @@
 package br.com.clogos.curso.controle;
 
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
