@@ -2,7 +2,6 @@ package br.com.clogos.curso.controle;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -90,7 +89,7 @@ public class ExercicioServlet extends HttpServlet {
 				listaExercicioRespondido.add(exercicio);
 			}
 			
-			Double mediaAcerto = obterMediaAcertos(listaExercicioRespondido.size(), qtdRespostaCorreta);
+			Integer mediaAcerto = obterMediaAcertos(listaExercicioRespondido.size(), qtdRespostaCorreta);
 			
 			request.setAttribute("nomeCurso", obterNomeCurso(usuarioLogado));
 			request.setAttribute("mediaAcerto", mediaAcerto);
@@ -133,13 +132,12 @@ public class ExercicioServlet extends HttpServlet {
 		return retornaUmSeCorreto;
 	}
 	
-	private Double obterMediaAcertos(Integer qtdExercicio, Integer qtdAcertos) {
-		DecimalFormat formato = new DecimalFormat("#,##");
-		Double resultado = Double.valueOf(formato.format((Double.valueOf(qtdAcertos) / Double.valueOf(qtdExercicio)) * 100)); 
+	private Integer obterMediaAcertos(Integer qtdExercicio, Integer qtdAcertos) {
+		Integer resultado = (int) ((Double.valueOf(qtdAcertos) / Double.valueOf(qtdExercicio)) * 100);
 		return resultado;
 	}
 	
-	private Boolean verificarSeHabilitadoECncluirCurso(Double mediaAcerto, Usuario usuario) {
+	private Boolean verificarSeHabilitadoECncluirCurso(Integer mediaAcerto, Usuario usuario) {
 		Parametro parametro = (Parametro) getGenericDAO().findID(Parametro.class, "idParametro", BigDecimal.ONE.longValue());
 		Boolean isHabilitado = mediaAcerto >= Long.valueOf(parametro.getValorParametro());
 		
